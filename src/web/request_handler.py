@@ -5,11 +5,13 @@ This module defines the HTTP request handler for the PS Monitor application,
 which processes API requests and serves static files.
 """
 import http.server
+import os
 
 from api.system_info import handle_system_info_request
 from api.disk_usage import handle_disk_usage_request
 from api.memory_usage import handle_memory_usage_request
-from utils.server_config import DIRECTORY
+
+STATIC_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "static")
 
 
 class RequestHandler(http.server.SimpleHTTPRequestHandler):
@@ -27,7 +29,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
             *args: Variable length argument list.
             **kwargs: Arbitrary keyword arguments.
         """
-        super().__init__(*args, directory=DIRECTORY, **kwargs)
+        super().__init__(*args, directory=STATIC_DIR, **kwargs)
 
     def do_GET(self):
         """

@@ -25,15 +25,13 @@ ps-monitor/
 │   │   ├── disk_usage.py      # Disk usage endpoint
 │   │   ├── memory_usage.py    # Memory usage endpoint
 │   │   └── system_info.py     # System info endpoint
-│   ├── handlers/              # HTTP request handlers
-│   │   ├── __init__.py
-│   │   └── request_handler.py # Main request handler
 │   ├── static/                # Static web assets
 │   │   ├── index.html         # Main HTML interface
 │   │   └── index.js           # JavaScript for dynamic content
-│   ├── utils/                 # Utility modules
+│   ├── web/                   # Web server implementation
 │   │   ├── __init__.py
-│   │   └── server_config.py   # Server configuration
+│   │   └── http_server.py     # HTTP server implementation
+│   │   └── request_handler.py # Requests handler
 │   └── main.py                # Application entry point
 └── README.md                  # Project documentation
 ```
