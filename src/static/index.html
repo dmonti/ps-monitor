@@ -2,33 +2,34 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>PS Monitor</title>
+    <title>Monitor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnE6r5r3WJk6YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
-<body>
-    <h1>PS Monitor</h1>
-    <p>Monitoramento de processos</p>
-    <h2>Informações do Sistema</h2>
-    <div id="info">
-        <em>Carregando informações...</em>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h1 class="card-title text-center mb-3">PS Monitor</h1>
+                        <p class="text-center text-muted">Monitoramento de processos</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="h5 mb-0">Informações do Sistema</h2>
+                    </div>
+                    <div class="card-body">
+                        <div id="info">
+                            <div class="text-center text-secondary"><em>Carregando informações...</em></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <script>
-        fetch('/api/info')
-            .then(response => response.json())
-            .then(data => {
-                const infoDiv = document.getElementById('info');
-                let html = '<table border="1" cellpadding="5"><tbody>';
-                html += `<tr><th colspan="2">OS</th></tr>`;
-                html += `<tr><td>Nome</td><td>${data.os.name}</td></tr>`;
-                html += `<tr><th colspan="2">Platform</th></tr>`;
-                for (const [key, value] of Object.entries(data.platform)) {
-                    html += `<tr><td>${key.charAt(0).toUpperCase() + key.slice(1)}</td><td>${value}</td></tr>`;
-                }
-                html += '</tbody></table>';
-                infoDiv.innerHTML = html;
-            })
-            .catch(err => {
-                document.getElementById('info').innerHTML = '<span style="color:red">Erro ao carregar informações do sistema.</span>';
-            });
-    </script>
+    <script src="index.js"></script>
 </body>
 </html>
