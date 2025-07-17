@@ -4,15 +4,16 @@ Server module for the PS Monitor application.
 This module provides server functionality to run the web application,
 handling the server lifecycle and request processing.
 """
-import socketserver
+import logging
 import os
 import platform
+import socketserver
 
 from web.request_handler import RequestHandler
 
-# Server configuration
-PORT = 8000
+logger = logging.getLogger('HttpServer')
 
+PORT = 8000
 
 class HttpServer:
     """
@@ -50,9 +51,8 @@ class HttpServer:
                 The callback will receive the startup time in milliseconds as an argument.
         """
         self.httpd = self.create_server()
-        
-        print(f"Starting ps-monitor using Python v{platform.python_version()} with PID {os.getpid()}")
-        print(f"Server running at http://localhost:{self.port}")
+
+        logger.info(f"Server running at http://localhost:{self.port}")
         
         # Call the startup callback with the startup time if provided
         if startup_callback:
@@ -61,12 +61,12 @@ class HttpServer:
         try:
             self.httpd.serve_forever()
         except KeyboardInterrupt:
-            print("\nShutting down server...")
+            logger.info("\nShutting down server...")
             self.shutdown()
     
     def shutdown(self):
         """Shutdown the server gracefully."""
         if self.httpd:
             self.httpd.server_close()
-            print("Server stopped.")
+            logger.info("Server stopped.")
 
