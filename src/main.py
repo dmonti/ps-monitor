@@ -5,41 +5,18 @@ PS Monitor - A simple system monitoring web application
 Provides API endpoints for system information and disk usage,
 and serves a web interface to display this information.
 """
-import http.server
 import socketserver
 import os
 import platform
 
 # Import modules from the project
-from utils.server_config import PORT, DIRECTORY
-from api.system_info import handle_system_info_request
-from api.disk_usage import handle_disk_usage_request
-from api.memory_usage import handle_memory_usage_request
-
-
-class Handler(http.server.SimpleHTTPRequestHandler):
-    """Request handler for the PS Monitor web server"""
-    
-    def __init__(self, *args, **kwargs):
-        """Initialize the handler with the static directory"""
-        super().__init__(*args, directory=DIRECTORY, **kwargs)
-
-    def do_GET(self):
-        """Handle GET requests"""
-        if self.path == '/api/system/info':
-            handle_system_info_request(self)
-        elif self.path == '/api/disk/usage':
-            handle_disk_usage_request(self)
-        elif self.path == '/api/memory/usage':
-            handle_memory_usage_request(self)
-        else:
-            # Let SimpleHTTPRequestHandler handle static files
-            super().do_GET()
+from utils.server_config import PORT
+from handlers.request_handler import RequestHandler
 
 
 def main():
     """Main entry point for the application"""
-    with socketserver.TCPServer(("", PORT), Handler) as httpd:
+    with socketserver.TCPServer(("", PORT), RequestHandler) as httpd:
         print(f"Starting ps-monitor using Python v{platform.python_version()} with PID {os.getpid()}")
         print(f"Server running at http://localhost:{PORT}/")
         try:
