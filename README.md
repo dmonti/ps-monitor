@@ -19,30 +19,30 @@ A lightweight system monitoring web application that provides real-time informat
 
 ```
 ps-monitor/
-├── src/                  # Source code
-│   ├── api/              # API endpoint handlers
+├── src/                       # Source code
+│   ├── api/                   # API endpoint handlers
 │   │   ├── __init__.py
-│   │   ├── disk_usage.py # Disk usage endpoint
-│   │   ├── memory_usage.py # Memory usage endpoint
-│   │   └── system_info.py # System info endpoint
-│   ├── handlers/         # HTTP request handlers
+│   │   ├── disk_usage.py      # Disk usage endpoint
+│   │   ├── memory_usage.py    # Memory usage endpoint
+│   │   └── system_info.py     # System info endpoint
+│   ├── handlers/              # HTTP request handlers
 │   │   ├── __init__.py
 │   │   └── request_handler.py # Main request handler
-│   ├── static/           # Static web assets
-│   │   ├── index.html    # Main HTML interface
-│   │   └── index.js      # JavaScript for dynamic content
-│   ├── utils/            # Utility modules
+│   ├── static/                # Static web assets
+│   │   ├── index.html         # Main HTML interface
+│   │   └── index.js           # JavaScript for dynamic content
+│   ├── utils/                 # Utility modules
 │   │   ├── __init__.py
-│   │   └── server_config.py # Server configuration
-│   └── main.py           # Application entry point
-└── README.md             # Project documentation
+│   │   └── server_config.py   # Server configuration
+│   └── main.py                # Application entry point
+└── README.md                  # Project documentation
 ```
 
 ## Installation
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/ps-monitor.git
+   git clone https://github.com/dmonti/ps-monitor.git
    cd ps-monitor
    ```
 
