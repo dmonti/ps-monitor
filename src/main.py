@@ -17,26 +17,19 @@ from data.db.database import Database
 from data.db.disk_usage_monitor import start_monitoring
 from web.http_server import HttpServer
 
+running = True
 startup_at = time.time()
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)-5s [%(threadName)19s] %(name)-16s: %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)-5s [%(threadName)20s] %(name)-18s: %(message)s')
 logger = logging.getLogger('main')
 
 http_server = HttpServer()
-running = True
-
-def signal_handler(signal, frame):
-    logger.info(f"Received shutdown signal({signal}), stopping server...")
-    global running
-    running = False
-    http_server.shutdown()
-    sys.exit(0)
 
 def main():
     logger.info(f"Starting ps-monitor using Python v{platform.python_version()} with PID {os.getpid()}")
 
-    signal.signal(signal.SIGINT, signal_handler)
-    signal.signal(signal.SIGTERM, signal_handler)
+    signal.signal(signal.SIGINT, shutdown)
+    signal.signal(signal.SIGTERM, shutdown)
 
     Database.initialize_schema()
     start_monitoring()
@@ -54,9 +47,14 @@ def main():
         while running:
             time.sleep(1)
     except KeyboardInterrupt:
-        running = False
-        http_server.shutdown()
-        sys.exit(0)
+        shutdown()
+
+def shutdown(signal=None, frame=None):
+    logger.info(f"Received shutdown signal({signal}), stopping server...")
+    global running
+    running = False
+    http_server.shutdown()
+    sys.exit(0)
 
 
 if __name__ == "__main__":

@@ -6,7 +6,6 @@ handling the server lifecycle and request processing.
 """
 import logging
 import os
-import platform
 import socketserver
 
 from web.request_handler import RequestHandler

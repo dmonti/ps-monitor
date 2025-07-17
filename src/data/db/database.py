@@ -2,9 +2,9 @@
 Database module for PS Monitor application.
 Provides database connectivity and configuration.
 """
+import logging
 import os
 import sqlite3
-import logging
 
 logger = logging.getLogger('Database')
 
