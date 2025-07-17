@@ -5,13 +5,13 @@ PS Monitor - A simple system monitoring web application
 Provides API endpoints for system information and disk usage,
 and serves a web interface to display this information.
 """
-import threading
-import time
 import signal
 import sys
+import time
+import threading
 import logging
-import platform
 import os
+import platform
 
 from data.db.database import Database
 from data.db.disk_usage_monitor import start_monitoring

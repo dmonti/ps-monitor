@@ -13,7 +13,7 @@ from web.request_handler import RequestHandler
 
 logger = logging.getLogger('HttpServer')
 
-PORT = 8000
+HTTP_PORT = int(os.environ.get('PS_MONITOR_PORT', 8000))
 
 class HttpServer:
     """
@@ -22,7 +22,7 @@ class HttpServer:
     Handles server lifecycle including setup, startup, and shutdown.
     """
     
-    def __init__(self, host="", port=PORT):
+    def __init__(self, host="", port=HTTP_PORT):
         """
         Initialize the server with host and port.
         
