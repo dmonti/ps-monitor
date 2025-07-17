@@ -25,6 +25,15 @@ $(function() {
             $('#disk-usage').html('<div class="alert alert-danger text-center">Error loading disk information.</div>');
         });
 
+    // Load and display memory usage information
+    $.getJSON('/api/memory/usage')
+        .done(function(data) {
+            displayMemoryUsageTable(data);
+        })
+        .fail(function() {
+            $('#memory-usage').html('<div class="alert alert-danger text-center">Error loading memory information.</div>');
+        });
+
     // Function to format bytes into readable format
     function formatBytes(bytes, decimals = 2) {
         if (bytes === 0) return '0 Bytes';
@@ -67,5 +76,52 @@ $(function() {
         
         html += '</tbody></table>';
         $('#disk-usage').html(html);
+    }
+    
+    // Function to display memory usage table
+    function displayMemoryUsageTable(data) {
+        if (!data || data.error) {
+            $('#memory-usage').html('<div class="alert alert-warning text-center">No memory information available.' + 
+                                   (data.error ? ` Error: ${data.error}` : '') + '</div>');
+            return;
+        }
+
+        let html = '<table class="table table-bordered table-striped mt-2">';
+        html += '<thead><tr class="table-info"><th colspan="3" class="text-center">Physical Memory</th></tr></thead>';
+        html += '<tbody>';
+        html += '<tr>';
+        html += '<td>Total</td>';
+        html += `<td>${formatBytes(data.total)}</td>`;
+        html += '<td rowspan="3">';
+        html += `<div class="progress" style="height: 100%;">`;
+        html += `<div class="progress-bar ${data.percent_used > 90 ? 'bg-danger' : data.percent_used > 70 ? 'bg-warning' : 'bg-info'}" `;
+        html += `role="progressbar" style="width: ${data.percent_used}%;" `;
+        html += `aria-valuenow="${data.percent_used}" aria-valuemin="0" aria-valuemax="100">${data.percent_used}%</div>`;
+        html += '</div>';
+        html += '</td>';
+        html += '</tr>';
+        html += `<tr><td>Used</td><td>${formatBytes(data.used)}</td></tr>`;
+        html += `<tr><td>Free</td><td>${formatBytes(data.free)}</td></tr>`;
+        
+        // Swap section if available
+        if (data.swap_total > 0) {
+            html += '<tr class="table-info"><th colspan="3" class="text-center">Swap Memory</th></tr>';
+            html += '<tr>';
+            html += '<td>Total</td>';
+            html += `<td>${formatBytes(data.swap_total)}</td>`;
+            html += '<td rowspan="3">';
+            html += `<div class="progress" style="height: 100%;">`;
+            html += `<div class="progress-bar ${data.swap_percent_used > 90 ? 'bg-danger' : data.swap_percent_used > 70 ? 'bg-warning' : 'bg-secondary'}" `;
+            html += `role="progressbar" style="width: ${data.swap_percent_used}%;" `;
+            html += `aria-valuenow="${data.swap_percent_used}" aria-valuemin="0" aria-valuemax="100">${data.swap_percent_used}%</div>`;
+            html += '</div>';
+            html += '</td>';
+            html += '</tr>';
+            html += `<tr><td>Used</td><td>${formatBytes(data.swap_used)}</td></tr>`;
+            html += `<tr><td>Free</td><td>${formatBytes(data.swap_free)}</td></tr>`;
+        }
+        
+        html += '</tbody></table>';
+        $('#memory-usage').html(html);
     }
 });

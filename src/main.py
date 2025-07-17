@@ -14,6 +14,7 @@ import platform
 from utils.server_config import PORT, DIRECTORY
 from api.system_info import handle_system_info_request
 from api.disk_usage import handle_disk_usage_request
+from api.memory_usage import handle_memory_usage_request
 
 
 class Handler(http.server.SimpleHTTPRequestHandler):
@@ -29,6 +30,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             handle_system_info_request(self)
         elif self.path == '/api/disk/usage':
             handle_disk_usage_request(self)
+        elif self.path == '/api/memory/usage':
+            handle_memory_usage_request(self)
         else:
             # Let SimpleHTTPRequestHandler handle static files
             super().do_GET()
