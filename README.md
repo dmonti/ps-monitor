@@ -10,8 +10,6 @@ A lightweight system monitoring web application that provides real-time informat
 - **SQLite Database**: Persistent storage of disk usage metrics for historical analysis
 - **Background Monitoring**: Collects disk usage data every 10 minutes
 - **Cross-Platform**: Works on Linux, macOS, and Windows
-- **No External Dependencies**: Pure Python implementation using standard libraries
-- **Clean English UI**: All user interface text presented in English
 
 ## Requirements
 
@@ -22,27 +20,27 @@ A lightweight system monitoring web application that provides real-time informat
 
 ```
 ps-monitor/
-├── src/                       # Source code
-│   ├── api/                   # API endpoint handlers
+├── src/                                 # Source code
+│   ├── api/                             # API endpoint handlers
 │   │   ├── __init__.py
-│   │   ├── disk_usage.py      # Disk usage endpoint
-│   │   ├── memory_usage.py    # Memory usage endpoint
-│   │   └── system_info.py     # System info endpoint
-│   ├── data/                  # Data storage components
-│   │   └── db/                # Database related modules
+│   │   ├── disk_usage.py                # Disk usage endpoint
+│   │   ├── memory_usage.py              # Memory usage endpoint
+│   │   └── system_info.py               # System info endpoint
+│   ├── data/                            # Data storage components
+│   │   └── db/                          # Database related modules
 │   │       ├── __init__.py
-│   │       ├── database.py    # Database connection handler
-│   │       ├── disk_usage_monitor.py # Background disk usage monitor
+│   │       ├── database.py              # Database connection handler
+│   │       ├── disk_usage_monitor.py    # Background disk usage monitor
 │   │       └── disk_usage_repository.py # Disk usage data storage
-│   ├── static/                # Static web assets
-│   │   ├── index.html         # Main HTML interface
-│   │   └── index.js           # JavaScript for dynamic content
-│   ├── web/                   # Web server implementation
+│   ├── static/                          # Static web assets
+│   │   ├── index.html                   # Main HTML interface
+│   │   └── index.js                     # JavaScript for dynamic content
+│   ├── web/                             # Web server implementation
 │   │   ├── __init__.py
-│   │   ├── http_server.py     # HTTP server implementation
-│   │   └── request_handler.py # Requests handler
-│   └── main.py                # Application entry point
-└── README.md                  # Project documentation
+│   │   ├── http_server.py               # HTTP server implementation
+│   │   └── request_handler.py           # Requests handler
+│   └── main.py                          # Application entry point
+└── README.md                            # Project documentation
 ```
 
 ## Installation
