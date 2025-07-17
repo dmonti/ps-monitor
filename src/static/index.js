@@ -1,6 +1,6 @@
 $(function() {
     // Load system information
-    $.getJSON('/api/info')
+    $.getJSON('/api/system/info')
         .done(function(data) {
             let html = '<table class="table table-bordered table-striped mt-2">';
             html += '<thead><tr class="table-primary"><th colspan="2" class="text-center">OS</th></tr></thead><tbody>';
@@ -17,7 +17,7 @@ $(function() {
         });
 
     // Load and display disk usage information
-    $.getJSON('/api/disk-usage')
+    $.getJSON('/api/disk/usage')
         .done(function(data) {
             displayDiskUsageTable(data);
         })

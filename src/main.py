@@ -25,9 +25,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
     def do_GET(self):
         """Handle GET requests"""
-        if self.path == '/api/info':
+        if self.path == '/api/system/info':
             handle_system_info_request(self)
-        elif self.path == '/api/disk-usage':
+        elif self.path == '/api/disk/usage':
             handle_disk_usage_request(self)
         else:
             # Let SimpleHTTPRequestHandler handle static files
@@ -37,7 +37,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 def main():
     """Main entry point for the application"""
     with socketserver.TCPServer(("", PORT), Handler) as httpd:
-        print(f"Starting ps-monitor using Python {platform.python_version()} with PID {os.getpid()}")
+        print(f"Starting ps-monitor using Python v{platform.python_version()} with PID {os.getpid()}")
         print(f"Server running at http://localhost:{PORT}/")
         try:
             httpd.serve_forever()
