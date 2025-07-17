@@ -9,7 +9,6 @@ import socketserver
 import os
 import platform
 
-# Import modules from the project
 from utils.server_config import PORT
 from handlers.request_handler import RequestHandler
 
